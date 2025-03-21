@@ -73,25 +73,25 @@ rosservice call /liloc/save_session 0.2  # save results of the updated central s
 ### 1. NCLT dataset
 Download NCLT from [https://robots.engin.umich.edu/nclt/](https://robots.engin.umich.edu/nclt/)
 ```bash
-roslaunch block_localization run_nclt.launch
+roslaunch liloc run_nclt.launch
 ```
 
 ### 2. M2DGR dataset
 Download M2DGR from [https://github.com/SJTU-ViSYS/M2DGR](https://github.com/SJTU-ViSYS/M2DGR)
 ```bash
-roslaunch block_localization run_m2dgr.launch
+roslaunch liloc run_m2dgr.launch
 ```
 
 ### 3. Our School dataset
 Download the School dataset from [Google Driver](https://drive.google.com/drive/folders/14u6axUkISU5j9CxxUYEoU7Le1qneiOvA?usp=sharing)
 ```bash
-roslaunch block_localization run_lio_sam_mid360.launch
+roslaunch liloc run_lio_sam_mid360.launch
 ```
 
 ### 4. Our Factory dataset
 Download the Factory dataset from [BaiDu Pan (passcode: g4a8)](https://pan.baidu.com/s/1AuivykDu-2djHE7Z6Sqg5Q?pwd=g4a8)
 ```bash
-roslaunch block_localization run_lio_sam_default.launch
+roslaunch liloc run_lio_sam_default.launch
 ```
 
 
