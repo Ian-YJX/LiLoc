@@ -12,8 +12,10 @@ System:
   odometryFrame: "odom"
   mapFrame: "map"
 
-  savePCDDirectory: "/home/yixin/lio-sam/src/data"
-  saveSessionDirectory: "/home/yixin/lio-sam/src/session"
+  # savePCDDirectory: "/home/yixin/lio-sam/src/data"
+  # saveSessionDirectory: "/home/yixin/lio-sam/src/session"
+  savePCDDirectory: "/home/ian/ws_LTMapper/src/LiLoc/data"
+  saveSessionDirectory: "/home/ian/ws_LTMapper/src/LiLoc/session"
 
 Sensors:
   sensor: livox                              # lidar sensor type, 'velodyne' or 'ouster' or 'livox' or 'robosense'
