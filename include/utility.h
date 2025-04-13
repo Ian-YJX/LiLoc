@@ -492,4 +492,13 @@ float pointDistance(const T& p1, const T& p2) {
     return sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y) + (p1.z - p2.z) * (p1.z - p2.z));
 }
 
+// void collect_digits(std::vector<int> &digits, int num)
+// {
+//     if (num > 9)
+//     {
+//         collect_digits(digits, num / 10);
+//     }
+//     digits.push_back(num % 10);
+// }
+
 #endif

@@ -8,8 +8,8 @@
 
 #include "../tictoc.h"
 
-#include "BetweenFactorWithAnchoring.h"
-
+// #include "BetweenFactorWithAnchoring.h"
+#include "egoOptimization/anchorOptimize.hpp"
 #include <pclomp/ndt_omp.h>
 #include <pclomp/gicp_omp.h>
 
@@ -183,7 +183,7 @@ public:
 
         updateSessionPoses();
 
-        ROS_INFO_STREAM("Optimize ... " << " Have prior nodes: " << priorNodePtIds_.size() << ", current odometry nodes: " << currOdomNodeIds_.size() << " and incremental nodes: " << increNodePtIds_.size());
+        // ROS_INFO_STREAM("Optimize ... " << " Have prior nodes: " << priorNodePtIds_.size() << ", current odometry nodes: " << currOdomNodeIds_.size() << " and incremental nodes: " << increNodePtIds_.size());
     }
 
     void getCurrentPose(const int &key, const PointTypePose & cur_pose, const CloudPtr & cur_cloud) {
@@ -195,7 +195,7 @@ public:
     }
 
     void margilization() {
-        if ((key_ != 0 && key_ % 10 == 0 || priorSession_->margFlag)) {
+        if ((key_ != 0 && key_ % 10 == 0) || priorSession_->margFlag) {
             int currentId = genGlobalNodeIdx(session_id, key_);
 
             gtsam::noiseModel::Gaussian::shared_ptr updatedPoseNoise = gtsam::noiseModel::Gaussian::Covariance(isam_->marginalCovariance(currentId));
@@ -210,7 +210,7 @@ public:
 
         addLidarFactor();
 
-        double t1 = time.toc("lidar factor");
+        // double t1 = time.toc("lidar factor");
 
         // std::cout << " lidar factor :" << t1 << std::endl;
 
@@ -219,21 +219,21 @@ public:
 
         addScanMatchingFactor();
 
-        double t2 = time.toc("scan factor");
+        // double t2 = time.toc("scan factor");
 
         // std::cout << " scan factor :" << t2 - t1 << std::endl;
 
 
         optimizeGraph(1);
 
-        double t3 = time.toc("opt");
+        // double t3 = time.toc("opt");
 
         // std::cout << " opt :" << t3 - t2 << std::endl;
     
 
         margilization();
 
-        double t4 = time.toc("marg");
+        // double t4 = time.toc("marg");
 
         // std::cout << " marg :" << t4 - t3 << std::endl;
     }
@@ -343,7 +343,7 @@ public:
                 TrajectoryPtr vertexCloud(new Trajectory());
                 float xx = 0.0, xy = 0.0, xz = 0.0;
 
-                for (int i = end; i < priorSession_->keyCloudVec_.size(); i++) {
+                for (int i = end; i < (int)priorSession_->keyCloudVec_.size(); i++) {
                     *submap += *transformPointCloud(priorSession_->keyCloudVec_[i], &priorSession_->KeyPoses6D_->points[i]);
                     xx += priorSession_->KeyPoses6D_->points[i].x;
                     xy += priorSession_->KeyPoses6D_->points[i].y;

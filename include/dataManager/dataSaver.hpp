@@ -124,7 +124,7 @@ public:
     void saveOptimizedVerticesTUM(gtsam::Values _estimates) {
         std::fstream stream(save_directory + "optimized_odom_tum.txt", std::fstream::out);
         stream.precision(15);
-        for (int i = 0; i < _estimates.size(); i++) {
+        for (int i = 0; i < (int)_estimates.size(); i++) {
             auto &pose = _estimates.at(i).cast<gtsam::Pose3>();
             gtsam::Point3 p = pose.translation();
             gtsam::Quaternion q = pose.rotation().toQuaternion();
@@ -144,9 +144,9 @@ public:
         g2o_outfile.precision(15);
         // g2o_outfile << std::fixed << std::setprecision(9);
 
-        for (int i = 0; i < keyframePosesOdom.size(); i++) {
+        for (int i = 0; i < (int)keyframePosesOdom.size(); i++) {
             nav_msgs::Odometry odometry = keyframePosesOdom.at(i);
-            double time = odometry.header.stamp.toSec();
+            // double time = odometry.header.stamp.toSec();
 
             g2o_outfile << "VERTEX_SE3:QUAT " << std::to_string(i) << " ";
             g2o_outfile << odometry.pose.pose.position.x << " ";
@@ -165,12 +165,12 @@ public:
         result_bag.open(save_directory + sequence_name + "_result.bag",
                     rosbag::bagmode::Write);
 
-        for (int i = 0; i < allOdometryVec.size(); i++) {
+        for (int i = 0; i < (int)allOdometryVec.size(); i++) {
             nav_msgs::Odometry _laserOdometry = allOdometryVec.at(i);
             result_bag.write("pgo_odometry", _laserOdometry.header.stamp, _laserOdometry);
         }
 
-        for (int i = 0; i < allResVec.size(); i++) {
+        for (int i = 0; i < (int)allResVec.size(); i++) {
             sensor_msgs::PointCloud2 _laserCloudFullRes = allResVec.at(i);
             result_bag.write("cloud_deskewed", _laserCloudFullRes.header.stamp, _laserCloudFullRes);
         }
@@ -182,7 +182,7 @@ public:
         result_bag.open(save_directory + sequence_name + "_result.bag", rosbag::bagmode::Write);
 
         tf2_msgs::TFMessage tf_message;
-        for (int i = 0; i < allOdometryVec.size(); i++) {
+        for (int i = 0; i < (int)allOdometryVec.size(); i++) {
             nav_msgs::Odometry _laserOdometry = allOdometryVec.at(i);
             result_bag.write("pgo_odometry", _laserOdometry.header.stamp, _laserOdometry);
 
@@ -243,7 +243,7 @@ public:
 
             // all cloud must rotate to body axis
             if (use_imu_frame) {
-                for (int j = 0; j < globalmap->points.size(); ++j) {
+                for (int j = 0; j < (int)globalmap->points.size(); ++j) {
                     PointT &pt = globalmap->points.at(j);
                     Eigen::Vector3d translation(pt.x, pt.y, pt.z);
                     translation = q_body_sensor * translation + t_body_sensor;

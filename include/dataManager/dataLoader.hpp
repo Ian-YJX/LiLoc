@@ -310,7 +310,7 @@ public:
 
         TrajectoryPtr vertexCloud(new Trajectory());
 
-        for (int i = 0; i < keyCloudVec_.size(); i++) {
+        for (int i = 0; i < (int)keyCloudVec_.size(); i++) {
             count ++;
             *submap += *transformPointCloud(keyCloudVec_[i], &KeyPoses6D_->points[i]);
             x += KeyPoses6D_->points[i].x;
@@ -319,7 +319,7 @@ public:
 
             vertexCloud->push_back(KeyPoses6D_->points[i]);
 
-            if (count % submap_size == 0 || i == keyCloudVec_.size() - 1) {
+            if (count % submap_size == 0 || i == (int)keyCloudVec_.size() - 1) {
                 PointTypePose centeriod;
                 centeriod.x = x / (float)count;
                 centeriod.y = y / (float)count;
@@ -361,7 +361,7 @@ public:
         
         usingSubMap_ = subMapCloudVec_[map_id];
 
-        std::cout << usingSubMap_->size() << std::endl;
+        // std::cout << usingSubMap_->size() << std::endl;
 
         ids.clear(); dis.clear();
         kdtreeSearchVertex_->setInputCloud(subMapVertexCloudVec_[map_id]);
