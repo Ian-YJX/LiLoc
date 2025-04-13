@@ -45,7 +45,7 @@ pose_estimator::pose_estimator()
     subPose = nh.subscribe<nav_msgs::Odometry>(poseTopic, 500, &pose_estimator::poseCBK, this);
     pubCloud = nh.advertise<sensor_msgs::PointCloud2>("/cloud", 1);
     pubPose = nh.advertise<nav_msgs::Odometry>("/pose", 1);
-    fout_relo.open(priorDir + "relo_pose.txt", ios::out);
+    fout_relo.open(priorDir + "/relo_pose.txt", ios::out);
 
     subExternalPose = nh.subscribe<geometry_msgs::PoseWithCovarianceStamped>("/initialpose_auto", 500, &pose_estimator::externalCBK, this);
     pubPriorMap = nh.advertise<sensor_msgs::PointCloud2>("/prior_map", 1);
