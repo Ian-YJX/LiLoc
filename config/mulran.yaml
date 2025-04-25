@@ -1,11 +1,11 @@
 System:
-  pointCloudTopic: "/livox/lidar" 
-  imuTopic: "/livox/imu"
+  pointCloudTopic: "/os1_points"
+  imuTopic: "/imu/data_raw"
   odomTopic: "odometry/imu"
 
   numberOfCores: 8
 
-  mode: "lio"                                  # "lio" or "relo"
+  mode: "relo"                                  # "lio" or "relo"
 
   lidarFrame: "base_link"
   baselinkFrame: "base_link"
@@ -18,8 +18,8 @@ System:
   saveSessionDirectory: "/home/ian/ws_LTMapper/src/LiLoc/session"
 
 Sensors:
-  sensor: livox                              # lidar sensor type, 'velodyne' or 'ouster' or 'livox' or 'robosense'
-  N_SCAN: 8                                    # number of lidar channel (i.e., Velodyne/Ouster: 16, 32, 64, 128, Horizon: 6, mid40: 1, mid360: 8, avia: 4)
+  sensor: ouster                              # lidar sensor type, 'velodyne' or 'ouster' or 'livox' or 'robosense'
+  N_SCAN: 64                                    # number of lidar channel (i.e., Velodyne/Ouster: 16, 32, 64, 128, Horizon: 6, mid40: 1, mid360: 8, avia: 4)
   Horizon_SCAN: 6000                            # lidar horizontal resolution (Velodyne: 1800, Ouster: 512, 1024, 2048, Horizon: 4000, mid360: 6000)
 
   have_ring_time_channel: true                  # some datasets, such as nclt and m2dgr has no ring or time channel
@@ -42,14 +42,14 @@ Sensors:
   correct: true
 
   # Extrinsics: (lidar -> imu)
-  extrinsicTrans: [ 0.04165, 0.02326, -0.0284 ]
-  extrinsicRot: [ 1, 0, 0,
-                  0, 1, 0,
+  extrinsicTrans:  [ 1.77, 0.0, -0.05 ]
+  extrinsicRot: [ -1, 0, 0,
+                  0, -1, 0,
                   0, 0, 1 ]
   
   # Extrinsics: 9-axis
-  extrinsicRPY: [ 1, 0, 0,
-                  0, 1, 0,
+  extrinsicRPY: [ -1, 0, 0,
+                  0, -1, 0,
                   0, 0, 1 ]
   
 Mapping:
@@ -66,8 +66,8 @@ Mapping:
 
   mappingSurfLeafSize: 0.2                      # default: 0.4 - outdoor, 0.2 - indoor
 
-  surroundingkeyframeAddingDistThreshold: 1.0   # meters, regulate keyframe adding threshold
-  surroundingkeyframeAddingAngleThreshold: 0.15  # radians, regulate keyframe adding threshold
+  surroundingkeyframeAddingDistThreshold: 3.0   # meters, regulate keyframe adding threshold
+  surroundingkeyframeAddingAngleThreshold: 0.5  # radians, regulate keyframe adding threshold
   surroundingKeyframeDensity: 0.5               # meters, downsample surrounding keyframe poses   
   surroundingKeyframeSearchRadius: 20.0         # meters, within n meters scan-to-map optimization (when loop closure disabled)
   surroundingKeyframeMapLeafSize: 0.2           # downsample local map point cloud
@@ -77,7 +77,7 @@ Mapping:
   globalMapVisualizationLeafSize: 0.5           # meters, global map visualization cloud density
 
 relo:
-    priorDir: "/home/ian/ws_LTMapper/src/LiLoc/data"
+    priorDir: "/home/ian/ws_LTMapper/src/LiLoc/data/"
     cloudTopic: "/cloud_registered"
     poseTopic: "/Odometry"
     searchDis: 5.0
@@ -91,7 +91,7 @@ relo:
     # extrinsic_R: [ 0.999610, 0.027142, 0.006595,
     #               0.027188, -0.999606, -0.006972,
     #              0.006403, 0.007149, -0.999954]
-    extrinsic_T: [ 0.031, -0.10, 0.11]  # seu velo16
-    extrinsic_R: [ 0.9994142, 0.03275957, 0.00990251,
-                  -0.03266505,  0.99942062, -0.00956125,
-                  -0.01021,  0.00923218,  0.99990526]
+    extrinsic_T: [ 1.77, 0.0, -0.05 ]
+    extrinsic_R: [-1, 0, 0,
+                  0, -1, 0,
+                  0, 0, 1]

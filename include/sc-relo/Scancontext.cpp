@@ -522,6 +522,7 @@ namespace ScanContext
         }
         else
         {
+            loop_id = nn_idx; // This is the nearest neighbor, but not a loop closure
             std::cout << "[No Loop] Nearest distance = " << min_dist
                       << " between current and " << nn_idx << std::endl;
         }
